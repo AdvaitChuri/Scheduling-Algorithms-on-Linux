@@ -1,0 +1,57 @@
+
+void snapshot(queue snap,int time,process p[],FILE *output ,int no_process,int max_time)
+{
+
+int run;
+printf("t = %d \n",time);
+
+if(time==0){
+
+printf("CPU: Loading process %d (CPU burst = %d)\n",snap.queue_info[time],snap.burst_info[time]);
+snap.burst_info[time]--;
+printf("Ready queue: ");
+
+for( int i =0;i<no_process;i++)
+{
+
+if(p[i].arrival_time <= time && time <p[i].end)
+{
+printf("-%d",p[i].process_id);
+}
+}
+printf("\n");
+
+}
+
+if(snap.queue_info[time-1]!=snap.queue_info[time] && snap.burst_info[time]==1){
+printf("CPU: Finishing process %d; loading process %d (CPU burst = %d)\n",snap.queue_info[time-1],snap.queue_info[time],snap.burst_info[time]);
+run = snap.queue_info[time];
+snap.burst_info[time]--;
+}
+
+else if(p[snap.queue_info[time]].start < time  < p[snap.queue_info[time]].end && time!=0){
+printf("CPU: Running process %d (remaining CPU burst = %d)\n",snap.queue_info[time],snap.burst_info[time]);
+snap.burst_info[time]--;
+}
+if(time!=0)
+{
+
+printf("Ready queue: ");
+
+//printf("%d",snap.queue_info[0]);
+//printf("%d   %d\n",snap.queue_info[time],no_process);
+for( int i =0;i<no_process;i++)
+{
+
+if(p[i].arrival_time <= time && time <p[i].end-1)
+{
+if(i!=snap.queue_info[time])
+printf("-%d",p[i].process_id);
+if(snap.queue_info[time-1]==no_process-1)
+printf("empty");
+}
+}
+printf("\n");
+}
+
+}

@@ -1,0 +1,165 @@
+///  shortest time to complete first algorithem using ascending sort
+
+
+for(int i=0;i<no_process;i++)
+{
+for(int j=i+1;j<no_process;j++)
+{
+  if(p[i].arrival_time > p[j].arrival_time)
+   {
+    int temp_id =p[j].process_id;
+    int temp_burst =p[j].burst;
+    int temp_time =p[j].arrival_time;
+    int temp_pri = p[j].priority;  
+  
+    p[j].process_id=p[i].process_id;
+    p[j].burst=p[i].burst;
+    p[j].arrival_time=p[i].arrival_time;
+    p[j].priority =p[i].priority;  
+
+    p[i].process_id=temp_id; 
+    p[i].burst=temp_burst; 
+    p[i].arrival_time=temp_time;
+    p[i].priority=temp_pri;
+   }
+  
+}
+}
+
+
+int a[no_process][max_time];
+int bus[no_process][max_time];
+for(int j=0;j<max_time;j++)
+{
+for(int i=0;i<no_process;i++)
+{
+
+a[i][j]=-1;
+bus[i][j]=-1;
+}
+
+}
+int min;
+
+min=p[0].process_id;
+
+for(int j=0;j<max_time;j++)
+{
+int i=0;
+for(int k=0;k<no_process;k++)
+{
+if(p[k].arrival_time<=j){
+a[i][j]=p[k].process_id;
+}
+i++;
+}
+}
+
+
+
+
+for(int j=0;j<max_time;j++)
+{
+int i=0;
+
+for(int m=0;m<no_process;m++)
+{
+if(a[m][j]>=0)
+i++;
+}
+
+for(int k=0;k<i;k++)
+{
+for(int l =k+1;l<i;l++)
+{
+if(p[a[k][j]].burst >p[a[l][j]].burst)
+   {
+    int temp_i =a[l][j];
+    a[l][j]=a[k][j];
+    a[k][j]=temp_i;
+ 
+    }
+
+}
+}
+
+stcf_q.queue_info[j]=a[0][j];
+stcf_q.burst_info[j]=p[a[0][j]].burst;
+p[a[0][j]].burst--;
+printf("pro is %d burst is %d at %d\n",stcf_q.queue_info[j],stcf_q.burst_info[j],j);
+
+
+
+if(p[a[0][j]].burst == 0){
+
+for(int d=0;d<max_time;d++)
+{
+for(int f=0;f<no_process;f++)
+{
+   if(a[f][d]==a[0][j])
+    a[f][d]=-1;
+}
+}
+
+
+/*
+a[0][j]=-1;
+int temp = a[0][j];
+int s;
+for(s=0;s<no_process;s++)
+ a[s][j]=a[s+1][j];
+
+a[s-1][j]=temp; 
+printf("after  ");
+for(int v=0;v<no_process;v++)
+printf("%d ",a[v][j]);
+printf("\n");*/
+
+
+//p[a[0][j]].burst=9999;
+}
+
+
+
+}
+
+
+for(int j=0;j<max_time;j++)
+{
+for(int i=0;i<no_process;i++)
+{
+printf("%d ",a[i][j]);
+("\n");
+}
+printf("\n");
+}
+
+
+
+
+////////////////////////////////
+
+
+
+int burst[5];
+int arrival[5];
+int r[5];
+for(int i=0;i<no_process;i++)
+{
+burst[i]=p[i].burst;
+arrival[i]=p[i],arrival_time;
+r[i]=p[i].burst;
+}
+int pro =0;
+for(int t=0;pro!=no_process;t++)
+{
+  int small =70;
+  for(int i=0;i<no_process;i++)
+   {
+    if(arrival[i]<=t && burst[i]>0 && r[i])
+
+   }
+
+
+
+}
